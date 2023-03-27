@@ -1,0 +1,21 @@
+.paper {
+  aspect-ratio: 1 / 1.41;
+  width: 80%;
+  background-color: white;
+  overflow: hidden;
+
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.pagesContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  gap: 24px;  
+}
+
+.hiddenComponent {
+  visibility: hidden;
+  position: fixed;
+}

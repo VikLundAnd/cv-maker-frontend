@@ -1,0 +1,64 @@
+.layout {
+  display: grid;
+  grid-template-areas: "sidebar main";
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  width: 100%;
+  height: 100%;
+
+  * {
+    color: white;
+    word-wrap: break-word;    
+    line-height: 1.5;  
+  }
+
+  h1 {
+    font-weight: 500;
+  }
+
+  h2 {
+    font-size: 12pt;
+    font-weight: 500;
+  }
+  
+  p {
+    font-size: 9pt;
+    font-weight: 500;
+  }
+}
+
+.sidebar {
+  grid-area: "sidebar";
+}
+
+.main {
+  position: relative;
+  grid-area: "main";
+  background-color: #21262D;
+  padding: 10%;
+
+  display: flex;
+  gap: 24pt;
+  flex-direction: column;
+}
+
+.divider {
+  border-width: 1pt;
+  border-style: solid;
+  border-image: 
+    linear-gradient(
+      to bottom, 
+      #F9A358, 
+      #E2F958
+    ) 1 0 0 0;
+
+    position: absolute;
+    width: 100%;
+    left: 0;
+
+}
+
+.section {
+
+    display: flex;
+    gap: 12pt;
+}

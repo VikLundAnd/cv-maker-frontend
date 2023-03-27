@@ -1,0 +1,29 @@
+.printContainer {
+  visibility: hidden;
+  display: none;
+  @media print {
+
+    body * {
+      visibility: hidden !important;
+    }
+
+    & * {
+      visibility: visible;  
+    }
+    
+    display: block;
+    position: absolute;
+    visibility: visible;
+    left: 0;
+    top: 0;
+    background-color: white;
+
+    @page { margin: 0; }
+    body { margin: 1.6cm; }
+    
+  }  
+
+
+
+}
+
