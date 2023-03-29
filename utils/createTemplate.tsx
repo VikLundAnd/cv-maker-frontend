@@ -26,24 +26,27 @@ export type Configuration = {
 export type Template<
   T extends Record<string, Configuration> = Record<string, Configuration>
 > = {
-  Element: ForwardRefExoticComponent<
-    PropsWithoutRef<JSX.IntrinsicElements["div"] & { variables: T }> &
-      RefAttributes<HTMLDivElement>
+  Element: ReturnType<
+    typeof forwardRef<
+      HTMLDivElement,
+      HTMLAttributes<HTMLDivElement> & { variables: T }
+    >
   >;
   configuration: T;
 };
 
-export const createTemplate = <
-  T extends Record<string, Configuration> = Record<string, Configuration>
->(
+export const createTemplate = <T extends Record<string, Configuration>>(
   variables: T,
-  element: ForwardRefExoticComponent<
-    PropsWithoutRef<JSX.IntrinsicElements["div"] & { variables: T }> &
-      RefAttributes<HTMLDivElement>
-  >
-): Template => {
+  element: Parameters<
+    typeof forwardRef<
+      HTMLDivElement,
+      HTMLAttributes<HTMLDivElement> & { variables: T }
+    >
+  >[0]
+): Template<T> => {
   return {
     configuration: variables,
-    Element: element,
+
+    Element: forwardRef(element),
   };
 };

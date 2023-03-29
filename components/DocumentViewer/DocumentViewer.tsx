@@ -48,6 +48,7 @@ export const DocumentViewer: FC = () => {
               variables={configuration}
               key={`page-${index}`}
               style={{
+                position: "absolute",
                 translate: `0 ${index * -(100 / pagesNo)}%`,
                 width: "100%",
                 aspectRatio: "1 / 1.41",

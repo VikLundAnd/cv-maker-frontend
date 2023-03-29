@@ -21,7 +21,7 @@ export const BetterTemplate = createTemplate(
       value: "",
     },
   },
-  forwardRef((props, ref) => {
+  (props, ref) => {
     return (
       <div {...props} ref={ref}>
         <div className={styles.layout}>
@@ -69,5 +69,5 @@ export const BetterTemplate = createTemplate(
         </div>
       </div>
     );
-  })
+  }
 );

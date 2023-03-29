@@ -1,4 +1,4 @@
-import { Template, TestTemplate } from "@/utils/createTemplate";
+import { Configuration, Template } from "@/utils/createTemplate";
 import React, { forwardRef, useEffect, useState } from "react";
 import { FC, PropsWithChildren } from "react";
 
@@ -7,20 +7,21 @@ export const DocumentContext = React.createContext<
 >([
   {
     configuration: {},
+    // eslint-disable-next-line react/display-name
     Element: forwardRef(() => <p>Placeholder</p>),
   },
   () => undefined,
 ] as const);
 
-type DocumentProviderProps = {
-  defaultTemplate: Template;
+type DocumentProviderProps<T extends Record<string, Configuration>> = {
+  defaultTemplate: Template<T>;
 };
 
-export const DocumentProvider: FC<PropsWithChildren<DocumentProviderProps>> = ({
+export const DocumentProvider = <T extends Record<string, Configuration>>({
   defaultTemplate,
   children,
-}) => {
-  const [template, setTemplate] = useState<Template>(defaultTemplate);
+}: PropsWithChildren<DocumentProviderProps<T>>) => {
+  const [template, setTemplate] = useState<Template<T>>(defaultTemplate);
 
   const handleChange = (key: string, value: string) => {
     setTemplate((currentTemplate) => {
@@ -34,7 +35,7 @@ export const DocumentProvider: FC<PropsWithChildren<DocumentProviderProps>> = ({
     });
   };
 
-  const value = [template, handleChange] as const;
+  const value = [template as unknown as Template, handleChange] as const;
 
   return (
     <DocumentContext.Provider value={value}>
