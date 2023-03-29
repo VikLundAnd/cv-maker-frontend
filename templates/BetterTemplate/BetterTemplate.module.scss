@@ -28,6 +28,11 @@
 
 .sidebar {
   grid-area: "sidebar";
+  background-image: linear-gradient(
+    to bottom, 
+    #F9A358, 
+    #E2F958
+  );
 }
 
 .main {

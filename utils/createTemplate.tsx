@@ -19,7 +19,7 @@ import {
 } from "react";
 
 export type Configuration = {
-  type: "text" | "textfield";
+  type: "text" | "textfield" | "image";
   value: string;
 };
 

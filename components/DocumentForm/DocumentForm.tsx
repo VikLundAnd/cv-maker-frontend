@@ -1,5 +1,6 @@
 import { useTemplate } from "@/hooks/useTemplate";
 import { Configuration } from "@/utils/createTemplate";
+import { toBase64 } from "@/utils/toBase64";
 import {
   Button,
   FormControl,
@@ -29,6 +30,16 @@ export const DocumentForm: FC = () => {
     (key: string): ChangeEventHandler<HTMLTextAreaElement> =>
     (e) => {
       setValue(key, e.target.value);
+    };
+
+  const handleImageChange =
+    (key: string): ChangeEventHandler<HTMLInputElement> =>
+    async (e) => {
+      const file = e.target.files?.item(0);
+
+      if (!file) return;
+      const fileString = await toBase64(file);
+      setValue(key, fileString ?? "");
     };
 
   const formElements =
@@ -66,6 +77,16 @@ export const DocumentForm: FC = () => {
                 />
               </FormControl>
             </GridItem>
+          );
+
+        case "image":
+          return (
+            <FormControl>
+              <FormLabel>
+                <Text casing={"capitalize"}>{key}</Text>
+              </FormLabel>
+              <Input type="file" onChange={handleImageChange(key)} />
+            </FormControl>
           );
 
         default:

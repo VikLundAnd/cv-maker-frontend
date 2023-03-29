@@ -1,6 +1,7 @@
 import { createTemplate } from "@/utils/createTemplate";
 import { Heading } from "@chakra-ui/react";
 import { Open_Sans } from "next/font/google";
+import Image from "next/image";
 import { forwardRef } from "react";
 import styles from "./BetterTemplate.module.scss";
 
@@ -20,12 +21,22 @@ export const BetterTemplate = createTemplate(
       type: "textfield",
       value: "",
     },
+    avatar: {
+      type: "image",
+      value: "",
+    },
   },
   (props, ref) => {
     return (
       <div {...props} ref={ref}>
         <div className={styles.layout}>
-          <div className={styles.sidebar}></div>
+          <div className={styles.sidebar}>
+            <img
+              src={props.variables.avatar.value}
+              alt={"avatar"}
+              width="100%"
+            />
+          </div>
           <div className={styles.main}>
             <section>
               <h1 className={OpenSans.className}>
