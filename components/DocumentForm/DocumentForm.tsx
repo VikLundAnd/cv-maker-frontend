@@ -8,10 +8,12 @@ import {
   Grid,
   GridItem,
   Input,
+  Kbd,
   SimpleGrid,
   Text,
   Textarea,
 } from "@chakra-ui/react";
+import { Card } from "@nextui-org/react";
 import { ChangeEventHandler, FC } from "react";
 import styles from "./DocumentForm.module.scss";
 
@@ -42,60 +44,73 @@ export const DocumentForm: FC = () => {
       setValue(key, fileString ?? "");
     };
 
-  const formElements =
-    configuration &&
-    Object.entries(configuration).map(([key, value]) => {
-      switch (value.type) {
-        case "text":
-          return (
+  const getElement = (name: string, value: Configuration) => {
+    switch (value.type) {
+      case "text":
+        return (
+          <FormControl>
+            <FormLabel>
+              <Text casing={"capitalize"}>{name}</Text>
+            </FormLabel>
+            <Input
+              key={name}
+              value={value.value}
+              onChange={handleInputChange(name)}
+            />
+          </FormControl>
+        );
+
+      case "textfield":
+        return (
+          <GridItem colSpan={2}>
             <FormControl>
               <FormLabel>
-                <Text casing={"capitalize"}>{key}</Text>
+                <Text casing={"capitalize"}>{name}</Text>
               </FormLabel>
-              <Input
-                key={key}
+              <Textarea
+                width="100%"
+                height={124}
+                resize={"none"}
+                key={name}
                 value={value.value}
-                onChange={handleInputChange(key)}
+                onChange={handleTextAreaChange(name)}
               />
             </FormControl>
-          );
+          </GridItem>
+        );
 
-        case "textfield":
-          return (
-            <GridItem colSpan={2}>
-              <FormControl>
-                <FormLabel>
-                  <Text casing={"capitalize"}>{key}</Text>
-                </FormLabel>
-                <Textarea
-                  width="100%"
-                  height={124}
-                  resize={"none"}
-                  key={key}
-                  value={value.value}
-                  onChange={handleTextAreaChange(key)}
-                />
-              </FormControl>
-            </GridItem>
-          );
+      case "image":
+        return (
+          <FormControl>
+            <FormLabel>
+              <Text casing={"capitalize"}>{name}</Text>
+            </FormLabel>
+            <input type="file" onChange={handleImageChange(name)} />
+          </FormControl>
+        );
 
-        case "image":
-          return (
-            <FormControl>
-              <FormLabel>
-                <Text casing={"capitalize"}>{key}</Text>
-              </FormLabel>
-              <Input type="file" onChange={handleImageChange(key)} />
-            </FormControl>
-          );
+      case "collection":
+        return (
+          <GridItem colSpan={2}>
+            <Card>
+              {Object.entries(value.value[0]).map(([key, value]) =>
+                getElement(key, value)
+              )}
+            </Card>
+          </GridItem>
+        );
 
-        default:
-          return <Text>Unable to determine type of input</Text>;
-      }
-    });
+      default:
+        return <Text>Unable to determine type of input</Text>;
+    }
+  };
+
+  const formElements =
+    configuration &&
+    Object.entries(configuration).map(([key, value]) => getElement(key, value));
 
   return (
-    <Grid templateColumns="minmax(0, 1fr) minmax(0, 1fr)" gap={48}>
+    <Grid templateColumns="minmax(0, 1fr) minmax(0, 1fr)" gap={4}>
       {formElements}
     </Grid>
   );

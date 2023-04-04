@@ -10,6 +10,7 @@ import { DocumentPrinter } from "@/components/DocumentPrinter/DocumentPrinter";
 import { DocumentProvider } from "@/components/DocumentProvider/DocumentProvider";
 import { BetterTemplate } from "@/templates/BetterTemplate/BetterTemplate";
 import Logo from "../public/logo.svg";
+import { Kbd } from "@chakra-ui/react";
 
 const inter = Inter({ subsets: ["latin"] });
 

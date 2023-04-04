@@ -18,10 +18,17 @@ import {
   PropsWithoutRef,
 } from "react";
 
-export type Configuration = {
+export type StandaloneConfiguration = {
   type: "text" | "textfield" | "image";
   value: string;
 };
+
+export type MultiConfiguration = {
+  type: "collection";
+  value: Record<string, StandaloneConfiguration>[];
+};
+
+export type Configuration = StandaloneConfiguration | MultiConfiguration;
 
 export type Template<
   T extends Record<string, Configuration> = Record<string, Configuration>

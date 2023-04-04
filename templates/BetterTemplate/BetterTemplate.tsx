@@ -1,9 +1,12 @@
+/* eslint-disable @next/next/no-img-element */
 import { createTemplate } from "@/utils/createTemplate";
-import { Heading } from "@chakra-ui/react";
+import { Heading, Text } from "@chakra-ui/react";
 import { Open_Sans } from "next/font/google";
 import Image from "next/image";
 import { forwardRef } from "react";
 import styles from "./BetterTemplate.module.scss";
+import AvatarPlaceholder from "../../public/avatar_placeholder.png";
+import _ from "lodash";
 
 const OpenSans = Open_Sans({ subsets: ["latin"] });
 
@@ -25,6 +28,21 @@ export const BetterTemplate = createTemplate(
       type: "image",
       value: "",
     },
+    // experiences: {
+    //   type: "collection",
+    //   value: [
+    //     {
+    //       title: {
+    //         type: "text",
+    //         value: "",
+    //       },
+    //       company: {
+    //         type: "text",
+    //         value: "",
+    //       },
+    //     },
+    //   ],
+    // },
   },
   (props, ref) => {
     return (
@@ -32,9 +50,13 @@ export const BetterTemplate = createTemplate(
         <div className={styles.layout}>
           <div className={styles.sidebar}>
             <img
-              src={props.variables.avatar.value}
+              src={
+                _.isEmpty(props.variables.avatar.value)
+                  ? AvatarPlaceholder.src
+                  : props.variables.avatar.value
+              }
               alt={"avatar"}
-              width="100%"
+              width={"100%"}
             />
           </div>
           <div className={styles.main}>
@@ -55,6 +77,11 @@ export const BetterTemplate = createTemplate(
             <section className={styles.section}>
               <hr className={styles.divider} />
               <h3 className={OpenSans.className}>Erfaring</h3>
+              {/* {props.variables.experiences.value.map((experience) => (
+                <Text key={experience.company.value + experience.title.value}>
+                  {experience.company.value}
+                </Text>
+              ))} */}
             </section>
             <section className={styles.section}>
               <hr className={styles.divider} />
